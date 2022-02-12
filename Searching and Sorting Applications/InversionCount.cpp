@@ -42,53 +42,60 @@ Explanation of Sample Output 1:
 We have a total of 4 pairs which satisfy the condition of inversion. (2, 1), (5, 1), (5, 3) and (5, 4).
 */
 
-long long merge(long long *arr, int start, int mid, int end)
+#include <iostream>
+using namespace std;
+long long merge(int A[], int left, int mid, int right)
 {
-    int i = start, j = mid, k = 0;
-    int temp[end - start + 1];
+    int i = left, j = mid, k = 0;
+    int temp[right - left + 1];
     long long count = 0;
-    while (i < mid && j <= end)
+    while (i < mid && j <= right)
     {
-        if (arr[i] <= arr[j])
+        if (A[i] <= A[j])
         {
-            temp[k++] = arr[i++];
+            temp[k++] = A[i++];
         }
         else
         {
-            temp[k++] = arr[j++];
+            temp[k++] = A[j++];
             count += mid - i;
         }
     }
     while (i < mid)
     {
-        temp[k++] = arr[i++];
+        temp[k++] = A[i++];
     }
-    while (j <= end)
+    while (j <= right)
     {
-        temp[k++] = arr[j++];
+        temp[k++] = A[j++];
     }
-    for (int i = start, k = 0; i <= end; i++, k++)
+    for (int i = left, k = 0; i <= right; i++, k++)
     {
-        arr[i] = temp[k];
+        A[i] = temp[k];
     }
     return count;
 }
-long long mergeSort(long long *arr, int start, int end)
+long long merge_sort(int A[], int left, int right)
 {
     long long count = 0;
-    if (end > start)
+    if (right > left)
     {
-        int mid = (end + start) / 2;
-        long long countLeft = mergeSort(arr, start, mid);
-        long long countRight = mergeSort(arr, mid + 1, end);
-        long long finalCount = merge(arr, start, mid + 1, end);
-        return countLeft + countRight + finalCount;
+        int mid = (left + right) / 2;
+        long long countLeft = merge_sort(A, left, mid);
+        long long countRight = merge_sort(A, mid + 1, right);
+        long long myCount = merge(A, left, mid + 1, right);
+        return myCount + countLeft + countRight;
     }
     return count;
 }
-long long getInversions(long long *arr, int n)
+long long solve(int A[], int n)
 {
-    // Write your code here.
-    long long ans = mergeSort(arr, 0, n - 1);
+    long long ans = merge_sort(A, 0, n - 1);
     return ans;
+}
+int main()
+{
+    int A[] = {5, 4, 2, 3, 1};
+    cout << solve(A, 5);
+    return 0;
 }

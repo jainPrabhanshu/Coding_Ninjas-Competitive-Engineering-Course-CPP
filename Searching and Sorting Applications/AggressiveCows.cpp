@@ -22,49 +22,45 @@ Sample Output 1:
 
 #include <bits/stdc++.h>
 using namespace std;
-
-bool valid(int c, long long *position, int n, long long distance)
+bool check(int cows, long long positions[], int n, long long distance)
 {
     int count = 1;
-    long long lastPosition = position[0];
+    long long last_position = positions[0];
     for (int i = 1; i < n; i++)
     {
-        if ((position[i] - lastPosition) >= distance)
+        if (positions[i] - last_position >= distance)
         {
-            lastPosition = position[i];
+            last_position = positions[i];
             count++;
         }
-        if (count == c)
+        if (count == cows)
         {
             return true;
         }
     }
     return false;
 }
-
 int main()
 {
-    // write your code
     int t;
     cin >> t;
     while (t--)
     {
         int n, c;
         cin >> n >> c;
-        long long position[n];
+        long long positions[n];
         for (int i = 0; i < n; i++)
         {
-            cin >> position[i];
+            cin >> positions[i];
         }
-        sort(position, position + n);
+        sort(positions, positions + n);
         long long start = 0;
-        long long end = position[n - 1] - position[0];
-
+        long long end = positions[n - 1] - positions[0];
         long long ans = -1;
         while (start <= end)
         {
             long long mid = start + (end - start) / 2;
-            if (valid(c, position, n, mid))
+            if (check(c, positions, n, mid))
             {
                 ans = mid;
                 start = mid + 1;
@@ -76,6 +72,5 @@ int main()
         }
         cout << ans << endl;
     }
-
     return 0;
 }
