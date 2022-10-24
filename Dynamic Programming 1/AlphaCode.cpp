@@ -1,5 +1,5 @@
 /* Quewstion : AlphaCode-Question
-Send Feedback
+
 Alice and Bob need to send secret messages to each other and are discussing ways to encode their messages:
 Alice: “Let’s just use a very simple code: We’ll assign ‘A’ the code word 1, ‘B’ will be 2, and so on down to ‘Z’ being assigned 26.”
 
